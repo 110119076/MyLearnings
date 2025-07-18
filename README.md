@@ -82,8 +82,11 @@ It's a **non blocking** call to start a **new saga task** in the background
 Eg:
 
 function* rootSaga() {
+
   yield fork(accountSaga);   // runs in background
+  
   yield fork(depositSaga);  // runs in background
+  
 }
 
 accountSaga and depositSaga both run concurrently and do not block each other.
