@@ -52,3 +52,41 @@ const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 The above code will watch for specific redux actions and when they occur, it triggers the respective generator function that you define to handle them (e.g., making API calls)
+
+###### What is put in sagas?
+
+It is like a dispatch in Redux. It **sends an action** to the **redux store**.
+
+To send success, failure, or progress updates **back to Redux from your saga**.
+
+###### What is select in sagas?
+
+select lets you **read data** from the **Redux store** inside your saga.
+
+UseCases: Check if user is logged in, Get current filter/page settings, Avoid calling APIs if data is already present
+
+###### What is takeLatest in sagas?
+
+takeLatest watches for an action and runs the saga, but:
+
+If another action of the **same type** comes in before the first one finishes, it cancels the first one and **runs only the latest**.
+
+UseCases: Search bar, login, fetch data on button click — if the user clicks multiple times, run only the last one.
+
+###### What is fork in sagas?
+
+It's a **non blocking** call to start a **new saga task** in the background
+
+“Start this task now, but don’t wait for it to finish — keep going with the current one.”
+
+Eg:
+
+function* rootSaga() {
+  yield fork(accountSaga);   // runs in background
+  yield fork(depositSaga);  // runs in background
+}
+
+accountSaga and depositSaga both run concurrently and do not block each other.
+
+Fork is used to run in **parallel and independently**
+
